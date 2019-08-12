@@ -1244,11 +1244,12 @@ let api = function Binance() {
         * @param {string} symbol - the symbol
         * @param {function} callback - the callback function
         * @param {int} limit - limit the number of returned orders
+        * @param {boolean} raw - return raw response, or depthData
         * @return {undefined}
         */
-        depth: function (symbol, callback, limit = 100) {
+        depth: function (symbol, callback, limit = 100, raw = false) {
             publicRequest(base + 'v1/depth', { symbol: symbol, limit: limit }, function (error, data) {
-                return callback.call(this, error, depthData(data), symbol);
+                return callback.call(this, error, raw ? data : depthData(data), symbol);
             });
         },
 
